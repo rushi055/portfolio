@@ -85,6 +85,34 @@
         padding: 0.25rem 0.75rem; /* px-3 py-1 */
         border-radius: 9999px; /* rounded-full */
       }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+        opacity: 0;
+      }
+      .custom-icon {
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        background-color: white;
+        border-radius: inherit;
+      }
+      .pinned-icon {
+        width: 100%;
+        height: 100%;
+        padding: 6px;
+        background-color: white;
+        border-radius: inherit;
+      }
     </style>
   </head>
   <body>
@@ -110,49 +138,97 @@
           id="home-screen"
           class="screen active p-6 pt-12 h-full overflow-hidden"
         >
-          <div class="text-white px-2 mb-6 mt-4">
-            <h1 class="text-2xl font-bold">Hello, Rushikesh</h1>
-            <p class="text-sm text-gray-400">Welcome to my digital space.</p>
+          <div
+            class="flex flex-col items-center text-center text-white pt-8 pb-4 animate-fade-in"
+          >
+            <img
+              src="https://placehold.co/96x96/1F2937/E5E7EB?text=RC"
+              alt="Rushikesh Chaudhari"
+              class="rounded-full w-24 h-24 mb-4 border-2 border-indigo-500/50"
+            />
+            <h1 class="text-2xl font-bold">Rushikesh Chaudhari</h1>
+            <p class="text-sm text-indigo-400">Mobile & Full-Stack Developer</p>
           </div>
-          <div class="grid grid-cols-4 gap-y-8 gap-x-4 text-center">
-            <!-- App Icons -->
+
+          <div class="px-2 mt-6 animate-fade-in" style="animation-delay: 0.2s">
+            <h2 class="text-xs font-semibold text-gray-500 uppercase mb-3 px-2">
+              Pinned Apps
+            </h2>
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div
+                class="app-icon content-card p-3"
+                data-target="projects-screen"
+              >
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl flex items-center justify-center text-white shadow-lg mx-auto"
+                >
+                  <img
+                    src="Image/Project.jpg"
+                    class="pinned-icon"
+                    alt="Projects"
+                  />
+                </div>
+                <span class="text-xs mt-2 block text-gray-300">Projects</span>
+              </div>
+              <div
+                class="app-icon content-card p-3"
+                data-target="skills-screen"
+              >
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-rose-500 to-rose-700 rounded-xl flex items-center justify-center text-white shadow-lg mx-auto"
+                >
+                  <img
+                    src="Image/skills.jpg"
+                    class="pinned-icon"
+                    alt="Skills"
+                  />
+                </div>
+                <span class="text-xs mt-2 block text-gray-300">Skills</span>
+              </div>
+              <div
+                class="app-icon content-card p-3"
+                data-target="experience-screen"
+              >
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-xl flex items-center justify-center text-white shadow-lg mx-auto"
+                >
+                  <img
+                    src="Image/experence.jpg"
+                    class="pinned-icon"
+                    alt="Experience"
+                  />
+                </div>
+                <span class="text-xs mt-2 block text-gray-300">Experience</span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex justify-center gap-x-8 text-center mt-12 animate-fade-in"
+            style="animation-delay: 0.4s"
+          >
+            <!-- Remaining App Icons -->
             <div class="app-icon" data-target="about-screen">
               <div
                 class="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
               >
-                <i class="ph-user ph-3x"></i>
+                <img
+                  src="Image/aboutme.jpg"
+                  class="custom-icon"
+                  alt="About Me"
+                />
               </div>
               <span class="text-xs mt-2 block text-gray-300">About Me</span>
-            </div>
-            <div class="app-icon" data-target="experience-screen">
-              <div
-                class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
-              >
-                <i class="ph-briefcase ph-3x"></i>
-              </div>
-              <span class="text-xs mt-2 block text-gray-300">Experience</span>
-            </div>
-            <div class="app-icon" data-target="projects-screen">
-              <div
-                class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
-              >
-                <i class="ph-rocket-launch ph-3x"></i>
-              </div>
-              <span class="text-xs mt-2 block text-gray-300">Projects</span>
-            </div>
-            <div class="app-icon" data-target="skills-screen">
-              <div
-                class="w-16 h-16 bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
-              >
-                <i class="ph-code ph-3x"></i>
-              </div>
-              <span class="text-xs mt-2 block text-gray-300">Skills</span>
             </div>
             <div class="app-icon" data-target="achievements-screen">
               <div
                 class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
               >
-                <i class="ph-trophy ph-3x"></i>
+                <img
+                  src="Image/Acheivment.jpg"
+                  class="custom-icon"
+                  alt="Achievements"
+                />
               </div>
               <span class="text-xs mt-2 block text-gray-300">Achievements</span>
             </div>
@@ -266,9 +342,9 @@
                     <div class="content-card p-4 mb-6">
                         <h3 class="font-semibold mb-3 text-indigo-300 flex items-center"><i class="ph-fill ph-lightning text-lg mr-2"></i>My Focus</h3>
                         <div class="space-y-3">
-                            <div class="flex items-center text-sm"><i class="ph-fill ph-device-mobile text-sky-400 mr-3"></i><span class="text-gray-300">Cross-Platform Mobile Apps (Flutter)</span></div>
-                            <div class="flex items-center text-sm"><i class="ph-fill ph-stack text-emerald-400 mr-3"></i><span class="text-gray-300">Full-Stack Web Solutions (MERN)</span></div>
-                            <div class="flex items-center text-sm"><i class="ph-fill ph-paint-brush text-rose-400 mr-3"></i><span class="text-gray-300">Intuitive UI/UX Design</span></div>
+                            <div class="flex items-center text-sm text-gray-300"><i class="ph-fill ph-device-mobile text-gray-400 mr-3"></i><span>Cross-Platform Mobile Apps (Flutter)</span></div>
+                            <div class="flex items-center text-sm text-gray-300"><i class="ph-fill ph-stack text-gray-400 mr-3"></i><span>Full-Stack Web Solutions (MERN)</span></div>
+                            <div class="flex items-center text-sm text-gray-300"><i class="ph-fill ph-paint-brush text-gray-400 mr-3"></i><span>Intuitive UI/UX Design</span></div>
                         </div>
                     </div>
 
@@ -284,21 +360,21 @@
           "experience-screen": `
                     <div class="space-y-6">
                         <div class="content-card p-4">
-                            <h3 class="font-bold text-lg text-emerald-400 flex items-center mb-2"><i class="ph-fill ph-buildings text-xl mr-2"></i>ETY Services</h3>
+                            <h3 class="font-bold text-lg text-white flex items-center mb-2"><i class="ph-fill ph-buildings text-gray-400 text-xl mr-2"></i>ETY Services</h3>
                             <p class="text-sm text-gray-400 mb-2 ml-1">Software Development Engineer Intern</p>
                             <ul class="text-sm text-gray-300 space-y-2">
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Architected a full-stack logistics platform using Flutter and Firebase.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Engineered geofencing logic, reducing failed deliveries by over 50%.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Automated escrow payment system, reducing disputes by 60%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Architected a full-stack logistics platform using Flutter and Firebase.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Engineered geofencing logic, reducing failed deliveries by over 50%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Automated escrow payment system, reducing disputes by 60%.</span></li>
                             </ul>
                         </div>
                         <div class="content-card p-4">
-                             <h3 class="font-bold text-lg text-emerald-400 flex items-center mb-2"><i class="ph-fill ph-buildings text-xl mr-2"></i>Aintelligence Technologies</h3>
+                             <h3 class="font-bold text-lg text-white flex items-center mb-2"><i class="ph-fill ph-buildings text-gray-400 text-xl mr-2"></i>Aintelligence Technologies</h3>
                             <p class="text-sm text-gray-400 mb-2 ml-1">Flutter Development Intern</p>
                             <ul class="text-sm text-gray-300 space-y-2">
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Architected a full-stack medicine delivery system.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Developed a role-specific Flutter app, cutting delivery times by 37.5%.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Fortified payment workflows and introduced inventory monitoring.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Architected a full-stack medicine delivery system.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Developed a role-specific Flutter app, cutting delivery times by 37.5%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Fortified payment workflows and introduced inventory monitoring.</span></li>
                             </ul>
                         </div>
                         <div class="h-24 flex-shrink-0"></div>
@@ -310,20 +386,20 @@
                             <div class="flex items-center mb-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0 mr-3"><i class="ph-truck ph-2x"></i></div>
                                 <div>
-                                    <h3 class="font-bold text-lg text-amber-400">Bhaada Buddy</h3>
+                                    <h3 class="font-bold text-lg text-white">Bhaada Buddy</h3>
                                     <a href="https://play.google.com/store/apps/details?id=com.bhaadapartner.bhaadapartner" target="_blank" class="text-indigo-400 text-xs hover:underline">Live on Play Store &rarr;</a>
                                 </div>
                             </div>
                             <p class="text-sm text-gray-300 mb-4">A multi-stage logistics application to streamline shipments, featuring OTP-based delivery verification and live vehicle tracking.</p>
                             
-                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-yellow-400 mr-2"></i>Key Features</h4>
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-gray-400 mr-2"></i>Key Features</h4>
                             <ul class="text-sm text-gray-300 space-y-2 mb-4 pl-2">
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Firestore-backed reactive state handling for real-time updates.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>UPI-enabled wallet processing over Rs. 25K+ in monthly transactions.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Automated notifications via Firebase Cloud Functions, boosting response by 75%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Firestore-backed reactive state handling for real-time updates.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>UPI-enabled wallet processing over Rs. 25K+ in monthly transactions.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Automated notifications via Firebase Cloud Functions, boosting response by 75%.</span></li>
                             </ul>
 
-                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-green-400 mr-2"></i>Tech Stack</h4>
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-gray-400 mr-2"></i>Tech Stack</h4>
                             <div class="flex flex-wrap gap-2 pl-2">
                                 <span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span class="tech-tag">GetX</span><span class="tech-tag">Google Maps API</span><span class="tech-tag">Cloud Functions</span>
                             </div>
@@ -333,20 +409,20 @@
                              <div class="flex items-center mb-3">
                                 <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0 mr-3"><i class="ph-heart ph-2x"></i></div>
                                 <div>
-                                    <h3 class="font-bold text-lg text-amber-400">DevTinder</h3>
+                                    <h3 class="font-bold text-lg text-white">DevTinder</h3>
                                     <a href="https://github.com/rushi055/DevTinder" target="_blank" class="text-indigo-400 text-xs hover:underline">View on GitHub &rarr;</a>
                                 </div>
                             </div>
                             <p class="text-sm text-gray-300 mb-4">A MERN-stack matchmaking platform for developers to connect and collaborate, featuring a swipe-based UI that attracted over 100 users.</p>
                             
-                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-yellow-400 mr-2"></i>Key Features</h4>
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-gray-400 mr-2"></i>Key Features</h4>
                             <ul class="text-sm text-gray-300 space-y-2 mb-4 pl-2">
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Secure, token-based user authentication using JWT.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Real-time match notifications and chat functionality with Socket.io.</span></li>
-                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Responsive, device-adaptive UI styled with Tailwind CSS.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Secure, token-based user authentication using JWT.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Real-time match notifications and chat functionality with Socket.io.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-gray-400 mr-2 mt-1"></i><span>Responsive, device-adaptive UI styled with Tailwind CSS.</span></li>
                             </ul>
 
-                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-green-400 mr-2"></i>Tech Stack</h4>
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-gray-400 mr-2"></i>Tech Stack</h4>
                             <div class="flex flex-wrap gap-2 pl-2">
                                 <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Express</span><span class="tech-tag">JWT</span><span class="tech-tag">Socket.io</span>
                             </div>
@@ -357,7 +433,7 @@
           "skills-screen": `
                     <div class="space-y-6">
                         <div class="content-card p-4">
-                             <h3 class="font-semibold text-sky-400 mb-3 flex items-center"><i class="ph-fill ph-code text-lg mr-2"></i>Frontend & Mobile</h3>
+                             <h3 class="font-semibold text-white mb-3 flex items-center"><i class="ph-fill ph-code text-gray-400 text-lg mr-2"></i>Frontend & Mobile</h3>
                              <div class="space-y-3">
                                 <div class="skill"><span class="skill-name">Flutter</span><div class="progress-bar-bg"><div class="progress-bar from-sky-500 to-sky-400" data-width="95%"></div></div></div>
                                 <div class="skill"><span class="skill-name">React.js</span><div class="progress-bar-bg"><div class="progress-bar from-sky-500 to-sky-400" data-width="80%"></div></div></div>
@@ -365,7 +441,7 @@
                              </div>
                         </div>
                         <div class="content-card p-4">
-                             <h3 class="font-semibold text-emerald-400 mb-3 flex items-center"><i class="ph-fill ph-database text-lg mr-2"></i>Backend & Databases</h3>
+                             <h3 class="font-semibold text-white mb-3 flex items-center"><i class="ph-fill ph-database text-gray-400 text-lg mr-2"></i>Backend & Databases</h3>
                              <div class="space-y-3">
                                 <div class="skill"><span class="skill-name">Firebase</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="90%"></div></div></div>
                                 <div class="skill"><span class="skill-name">Node.js</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="80%"></div></div></div>
@@ -375,7 +451,7 @@
                              </div>
                         </div>
                          <div class="content-card p-4">
-                             <h3 class="font-semibold text-amber-400 mb-3 flex items-center"><i class="ph-fill ph-translate text-lg mr-2"></i>Languages</h3>
+                             <h3 class="font-semibold text-white mb-3 flex items-center"><i class="ph-fill ph-translate text-gray-400 text-lg mr-2"></i>Languages</h3>
                              <div class="space-y-3">
                                 <div class="skill"><span class="skill-name">Dart</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="95%"></div></div></div>
                                 <div class="skill"><span class="skill-name">Java</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="85%"></div></div></div>
@@ -385,7 +461,7 @@
                              </div>
                         </div>
                         <div class="content-card p-4">
-                             <h3 class="font-semibold text-purple-400 mb-3 flex items-center"><i class="ph-fill ph-wrench text-lg mr-2"></i>DevOps & Tools</h3>
+                             <h3 class="font-semibold text-white mb-3 flex items-center"><i class="ph-fill ph-wrench text-gray-400 text-lg mr-2"></i>DevOps & Tools</h3>
                              <div class="space-y-3">
                                 <div class="skill"><span class="skill-name">Git & GitHub</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="90%"></div></div></div>
                                 <div class="skill"><span class="skill-name">Docker</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="75%"></div></div></div>
