@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rushikesh Chaudhari - Mobile Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(170deg, #0d1117 0%, #1a1a2e 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 1rem;
+      }
+      .screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0d1117;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transform: translateX(100%);
+        opacity: 0;
+        visibility: hidden;
+      }
+      .screen.active {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      .screen.exiting {
+        transform: translateX(-100%);
+      }
+      #home-screen.active {
+        transform: translateX(0);
+      }
+      .app-screen-content::-webkit-scrollbar {
+        width: 4px;
+      }
+      .app-screen-content::-webkit-scrollbar-track {
+        background: #161b22;
+      }
+      .app-screen-content::-webkit-scrollbar-thumb {
+        background: #4f46e5;
+        border-radius: 4px;
+      }
+      .app-icon div {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .app-icon:hover div {
+        transform: scale(1.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+      .content-card {
+        background-color: rgba(31, 41, 55, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(4px);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+        border-radius: 1rem; /* rounded-xl */
+      }
+      .content-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(79, 70, 229, 0.5);
+      }
+      .progress-bar {
+        width: 0%; /* Initial state for animation */
+        transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .tech-tag {
+        background-color: rgba(55, 65, 81, 0.5);
+        color: #d1d5db; /* text-gray-300 */
+        font-size: 0.75rem; /* text-xs */
+        font-weight: 500;
+        padding: 0.25rem 0.75rem; /* px-3 py-1 */
+        border-radius: 9999px; /* rounded-full */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Mobile Phone Frame -->
+    <div
+      class="w-full max-w-sm h-[800px] max-h-[90vh] bg-black rounded-[40px] shadow-2xl border-8 border-gray-800 overflow-hidden flex flex-col relative"
+    >
+      <!-- Screen Container (for animations) -->
+      <div class="flex-grow w-full h-full relative">
+        <!-- Status Bar (on all screens) -->
+        <div
+          class="absolute top-0 left-0 right-0 h-10 px-6 flex justify-between items-center z-20 text-white"
+        >
+          <span id="time" class="font-semibold text-sm">9:41</span>
+          <div class="flex items-center gap-1">
+            <i class="ph-fill ph-wifi-high"></i>
+            <i class="ph-fill ph-battery-high"></i>
+          </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div
+          id="home-screen"
+          class="screen active p-6 pt-12 h-full overflow-hidden"
+        >
+          <div class="text-white px-2 mb-6 mt-4">
+            <h1 class="text-2xl font-bold">Hello, Rushikesh</h1>
+            <p class="text-sm text-gray-400">Welcome to my digital space.</p>
+          </div>
+          <div class="grid grid-cols-4 gap-y-8 gap-x-4 text-center">
+            <!-- App Icons -->
+            <div class="app-icon" data-target="about-screen">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-sky-500 to-sky-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
+              >
+                <i class="ph-user ph-3x"></i>
+              </div>
+              <span class="text-xs mt-2 block text-gray-300">About Me</span>
+            </div>
+            <div class="app-icon" data-target="experience-screen">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
+              >
+                <i class="ph-briefcase ph-3x"></i>
+              </div>
+              <span class="text-xs mt-2 block text-gray-300">Experience</span>
+            </div>
+            <div class="app-icon" data-target="projects-screen">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
+              >
+                <i class="ph-rocket-launch ph-3x"></i>
+              </div>
+              <span class="text-xs mt-2 block text-gray-300">Projects</span>
+            </div>
+            <div class="app-icon" data-target="skills-screen">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-rose-500 to-rose-700 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
+              >
+                <i class="ph-code ph-3x"></i>
+              </div>
+              <span class="text-xs mt-2 block text-gray-300">Skills</span>
+            </div>
+            <div class="app-icon" data-target="achievements-screen">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center text-white shadow-lg mx-auto"
+              >
+                <i class="ph-trophy ph-3x"></i>
+              </div>
+              <span class="text-xs mt-2 block text-gray-300">Achievements</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Screens -->
+        <div
+          id="about-screen"
+          class="screen app-template"
+          data-title="About Me"
+        ></div>
+        <div
+          id="experience-screen"
+          class="screen app-template"
+          data-title="Experience"
+        ></div>
+        <div
+          id="projects-screen"
+          class="screen app-template"
+          data-title="Projects"
+        ></div>
+        <div
+          id="skills-screen"
+          class="screen app-template"
+          data-title="My Skills"
+        ></div>
+        <div
+          id="achievements-screen"
+          class="screen app-template"
+          data-title="Achievements"
+        ></div>
+      </div>
+
+      <!-- Dock -->
+      <div class="absolute bottom-0 left-0 right-0 p-3 z-10">
+        <div class="bg-gray-800/50 backdrop-blur-xl rounded-3xl p-2">
+          <div class="grid grid-cols-4 gap-2 text-center">
+            <a href="mailto:rushikeshapc410@gmail.com" class="dock-icon"
+              ><div
+                class="w-14 h-14 bg-gray-700/50 rounded-xl flex items-center justify-center text-white mx-auto"
+              >
+                <i class="ph-fill ph-envelope-simple text-3xl"></i></div
+            ></a>
+            <a
+              href="https://github.com/rushi055"
+              target="_blank"
+              class="dock-icon"
+              ><div
+                class="w-14 h-14 bg-gray-700/50 rounded-xl flex items-center justify-center text-white mx-auto"
+              >
+                <i class="ph-fill ph-github-logo text-3xl"></i></div
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/rushikesh012/"
+              target="_blank"
+              class="dock-icon"
+              ><div
+                class="w-14 h-14 bg-gray-700/50 rounded-xl flex items-center justify-center text-white mx-auto"
+              >
+                <i class="ph-fill ph-linkedin-logo text-3xl"></i></div
+            ></a>
+            <a
+              href="https://leetcode.com/u/rushiii125/"
+              target="_blank"
+              class="dock-icon"
+              ><div
+                class="w-14 h-14 bg-gray-700/50 rounded-xl flex items-center justify-center text-white mx-auto"
+              >
+                <i class="ph-fill ph-code-simple text-3xl"></i></div
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const timeEl = document.getElementById("time");
+
+        // --- CONTENT DEFINITIONS ---
+        const content = {
+          "about-screen": `
+                    <div class="flex items-center mb-6">
+                        <img src="https://placehold.co/80x80/1F2937/E5E7EB?text=RC" alt="Rushikesh Chaudhari" class="rounded-full w-20 h-20 mr-4 border-2 border-indigo-500">
+                        <div>
+                            <h1 class="text-xl font-bold text-white">Rushikesh Chaudhari</h1>
+                            <p class="text-indigo-400">Mobile & Full-Stack Developer</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 text-center mb-8">
+                        <div class="content-card p-2">
+                            <p class="text-lg font-bold text-white">1+</p>
+                            <p class="text-xs text-gray-400">YoE</p>
+                        </div>
+                        <div class="content-card p-2">
+                            <p class="text-lg font-bold text-white">4+</p>
+                            <p class="text-xs text-gray-400">Projects</p>
+                        </div>
+                        <div class="content-card p-2">
+                            <p class="text-lg font-bold text-white">#97</p>
+                            <p class="text-xs text-gray-400">AIR CodeVita</p>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        A passionate Computer Science student specializing in creating high-performance, user-centric mobile apps with Flutter. I thrive on turning complex problems into elegant, scalable solutions.
+                    </p>
+
+                    <div class="content-card p-4 mb-6">
+                        <h3 class="font-semibold mb-3 text-indigo-300 flex items-center"><i class="ph-fill ph-lightning text-lg mr-2"></i>My Focus</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center text-sm"><i class="ph-fill ph-device-mobile text-sky-400 mr-3"></i><span class="text-gray-300">Cross-Platform Mobile Apps (Flutter)</span></div>
+                            <div class="flex items-center text-sm"><i class="ph-fill ph-stack text-emerald-400 mr-3"></i><span class="text-gray-300">Full-Stack Web Solutions (MERN)</span></div>
+                            <div class="flex items-center text-sm"><i class="ph-fill ph-paint-brush text-rose-400 mr-3"></i><span class="text-gray-300">Intuitive UI/UX Design</span></div>
+                        </div>
+                    </div>
+
+                    <div class="content-card p-4">
+                        <h3 class="font-semibold mb-2 text-indigo-300 flex items-center"><i class="ph-fill ph-graduation-cap text-lg mr-2"></i>Education</h3>
+                        <div class="text-sm text-gray-400 pl-6">
+                            <p><strong class="text-gray-200">Indian Institute of Information Technology, Vadodara</strong></p>
+                            <p>B.Tech, CSE (2022 - Present)</p>
+                        </div>
+                    </div>
+                    <div class="h-24 flex-shrink-0"></div>
+                `,
+          "experience-screen": `
+                    <div class="space-y-6">
+                        <div class="content-card p-4">
+                            <h3 class="font-bold text-lg text-emerald-400 flex items-center mb-2"><i class="ph-fill ph-buildings text-xl mr-2"></i>ETY Services</h3>
+                            <p class="text-sm text-gray-400 mb-2 ml-1">Software Development Engineer Intern</p>
+                            <ul class="text-sm text-gray-300 space-y-2">
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Architected a full-stack logistics platform using Flutter and Firebase.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Engineered geofencing logic, reducing failed deliveries by over 50%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Automated escrow payment system, reducing disputes by 60%.</span></li>
+                            </ul>
+                        </div>
+                        <div class="content-card p-4">
+                             <h3 class="font-bold text-lg text-emerald-400 flex items-center mb-2"><i class="ph-fill ph-buildings text-xl mr-2"></i>Aintelligence Technologies</h3>
+                            <p class="text-sm text-gray-400 mb-2 ml-1">Flutter Development Intern</p>
+                            <ul class="text-sm text-gray-300 space-y-2">
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Architected a full-stack medicine delivery system.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Developed a role-specific Flutter app, cutting delivery times by 37.5%.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-emerald-400 mr-2 mt-1"></i><span>Fortified payment workflows and introduced inventory monitoring.</span></li>
+                            </ul>
+                        </div>
+                        <div class="h-24 flex-shrink-0"></div>
+                    </div>
+                `,
+          "projects-screen": `
+                    <div class="space-y-6">
+                        <div class="content-card p-4">
+                            <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0 mr-3"><i class="ph-truck ph-2x"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-amber-400">Bhaada Buddy</h3>
+                                    <a href="https://play.google.com/store/apps/details?id=com.bhaadapartner.bhaadapartner" target="_blank" class="text-indigo-400 text-xs hover:underline">Live on Play Store &rarr;</a>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-4">A multi-stage logistics application to streamline shipments, featuring OTP-based delivery verification and live vehicle tracking.</p>
+                            
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-yellow-400 mr-2"></i>Key Features</h4>
+                            <ul class="text-sm text-gray-300 space-y-2 mb-4 pl-2">
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Firestore-backed reactive state handling for real-time updates.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>UPI-enabled wallet processing over Rs. 25K+ in monthly transactions.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Automated notifications via Firebase Cloud Functions, boosting response by 75%.</span></li>
+                            </ul>
+
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-green-400 mr-2"></i>Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2 pl-2">
+                                <span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span class="tech-tag">GetX</span><span class="tech-tag">Google Maps API</span><span class="tech-tag">Cloud Functions</span>
+                            </div>
+                        </div>
+
+                        <div class="content-card p-4">
+                             <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-700 rounded-lg flex items-center justify-center text-white shadow-md flex-shrink-0 mr-3"><i class="ph-heart ph-2x"></i></div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-amber-400">DevTinder</h3>
+                                    <a href="https://github.com/rushi055/DevTinder" target="_blank" class="text-indigo-400 text-xs hover:underline">View on GitHub &rarr;</a>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-4">A MERN-stack matchmaking platform for developers to connect and collaborate, featuring a swipe-based UI that attracted over 100 users.</p>
+                            
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-star text-yellow-400 mr-2"></i>Key Features</h4>
+                            <ul class="text-sm text-gray-300 space-y-2 mb-4 pl-2">
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Secure, token-based user authentication using JWT.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Real-time match notifications and chat functionality with Socket.io.</span></li>
+                                <li class="flex items-start"><i class="ph-fill ph-check-circle text-sky-400 mr-2 mt-1"></i><span>Responsive, device-adaptive UI styled with Tailwind CSS.</span></li>
+                            </ul>
+
+                            <h4 class="font-semibold text-gray-200 text-sm mb-2 flex items-center"><i class="ph-fill ph-code text-green-400 mr-2"></i>Tech Stack</h4>
+                            <div class="flex flex-wrap gap-2 pl-2">
+                                <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">Express</span><span class="tech-tag">JWT</span><span class="tech-tag">Socket.io</span>
+                            </div>
+                        </div>
+                        <div class="h-24 flex-shrink-0"></div>
+                    </div>
+                `,
+          "skills-screen": `
+                    <div class="space-y-6">
+                        <div class="content-card p-4">
+                             <h3 class="font-semibold text-sky-400 mb-3 flex items-center"><i class="ph-fill ph-code text-lg mr-2"></i>Frontend & Mobile</h3>
+                             <div class="space-y-3">
+                                <div class="skill"><span class="skill-name">Flutter</span><div class="progress-bar-bg"><div class="progress-bar from-sky-500 to-sky-400" data-width="95%"></div></div></div>
+                                <div class="skill"><span class="skill-name">React.js</span><div class="progress-bar-bg"><div class="progress-bar from-sky-500 to-sky-400" data-width="80%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Figma</span><div class="progress-bar-bg"><div class="progress-bar from-sky-500 to-sky-400" data-width="85%"></div></div></div>
+                             </div>
+                        </div>
+                        <div class="content-card p-4">
+                             <h3 class="font-semibold text-emerald-400 mb-3 flex items-center"><i class="ph-fill ph-database text-lg mr-2"></i>Backend & Databases</h3>
+                             <div class="space-y-3">
+                                <div class="skill"><span class="skill-name">Firebase</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="90%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Node.js</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="80%"></div></div></div>
+                                <div class="skill"><span class="skill-name">MongoDB</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="75%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Supabase</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="85%"></div></div></div>
+                                <div class="skill"><span class="skill-name">MySQL</span><div class="progress-bar-bg"><div class="progress-bar from-emerald-500 to-emerald-400" data-width="70%"></div></div></div>
+                             </div>
+                        </div>
+                         <div class="content-card p-4">
+                             <h3 class="font-semibold text-amber-400 mb-3 flex items-center"><i class="ph-fill ph-translate text-lg mr-2"></i>Languages</h3>
+                             <div class="space-y-3">
+                                <div class="skill"><span class="skill-name">Dart</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="95%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Java</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="85%"></div></div></div>
+                                <div class="skill"><span class="skill-name">JavaScript</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="80%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Python</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="75%"></div></div></div>
+                                <div class="skill"><span class="skill-name">C++</span><div class="progress-bar-bg"><div class="progress-bar from-amber-500 to-amber-400" data-width="70%"></div></div></div>
+                             </div>
+                        </div>
+                        <div class="content-card p-4">
+                             <h3 class="font-semibold text-purple-400 mb-3 flex items-center"><i class="ph-fill ph-wrench text-lg mr-2"></i>DevOps & Tools</h3>
+                             <div class="space-y-3">
+                                <div class="skill"><span class="skill-name">Git & GitHub</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="90%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Docker</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="75%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Kubernetes</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="60%"></div></div></div>
+                                <div class="skill"><span class="skill-name">Selenium</span><div class="progress-bar-bg"><div class="progress-bar from-purple-500 to-purple-400" data-width="70%"></div></div></div>
+                             </div>
+                        </div>
+                        <div class="h-24 flex-shrink-0"></div>
+                    </div>
+                `,
+          "achievements-screen": `
+                    <div class="space-y-6">
+                        <div class="content-card p-4 border-2 border-yellow-400/50 shadow-lg shadow-yellow-400/10">
+                            <div class="flex items-center gap-4">
+                                <i class="ph-trophy ph-3x text-yellow-400"></i>
+                                <div class="flex-1">
+                                    <p class="font-bold text-lg text-white">HackThisFall Hackathon</p>
+                                    <p class="text-sm font-semibold text-yellow-300">Subcategory Winner</p>
+                                    <p class="text-xs text-gray-400 mt-1">2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-card p-4 border-gray-400/50">
+                            <div class="flex items-center gap-4">
+                                <i class="ph-medal ph-3x text-gray-300"></i>
+                                <div class="flex-1">
+                                    <p class="font-bold text-lg text-white">TCS CodeVita</p>
+                                    <p class="text-sm font-semibold text-gray-300">All India Rank 97</p>
+                                    <p class="text-xs text-gray-400 mt-1">National Programming Contest, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-card p-4 border-orange-400/50">
+                            <div class="flex items-center gap-4">
+                                <i class="ph-award ph-3x text-orange-400"></i>
+                                <div class="flex-1">
+                                    <p class="font-bold text-lg text-white">Cerebro Debuggathon</p>
+                                    <p class="text-sm font-semibold text-orange-300">Winner</p>
+                                    <p class="text-xs text-gray-400 mt-1">IIIT Vadodara, 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-24 flex-shrink-0"></div>
+                    </div>
+                `,
+        };
+
+        // --- DYNAMICALLY BUILD APP SCREENS ---
+        document.querySelectorAll(".app-template").forEach((template) => {
+          const title = template.dataset.title;
+          const screenContent = content[template.id] || "Content not found.";
+
+          template.innerHTML = `
+                    <div class="h-full flex flex-col">
+                        <div class="flex-shrink-0 p-4 pt-12 flex items-center">
+                            <button class="back-button text-white mr-4"><i class="ph-bold ph-caret-left text-2xl"></i></button>
+                            <h2 class="text-xl font-bold text-white">${title}</h2>
+                        </div>
+                        <div class="app-screen-content overflow-y-auto flex-grow p-6 pt-0">
+                            ${screenContent}
+                        </div>
+                    </div>
+                `;
+        });
+
+        // --- UI LOGIC ---
+        function showScreen(targetId) {
+          const currentActive = document.querySelector(".screen.active");
+          if (currentActive && currentActive.id !== targetId) {
+            // Reset skill bars when leaving the skills screen
+            if (currentActive.id === "skills-screen") {
+              const skillBars = currentActive.querySelectorAll(".progress-bar");
+              skillBars.forEach((bar) => {
+                bar.style.width = "0%";
+              });
+            }
+            currentActive.classList.add("exiting");
+            setTimeout(() => {
+              currentActive.classList.remove("active", "exiting");
+            }, 400);
+          }
+
+          const targetScreen = document.getElementById(targetId);
+          if (targetScreen) {
+            targetScreen.classList.add("active");
+            // Animate skills bars if skills screen is shown
+            if (targetId === "skills-screen") {
+              setTimeout(() => {
+                const skillBars =
+                  targetScreen.querySelectorAll(".progress-bar");
+                skillBars.forEach((bar) => {
+                  bar.style.width = bar.dataset.width;
+                });
+              }, 200); // Delay to allow screen transition to start
+            }
+          }
+        }
+
+        document.querySelectorAll(".app-icon").forEach((icon) => {
+          icon.addEventListener("click", () => {
+            showScreen(icon.dataset.target);
+          });
+        });
+
+        document.querySelectorAll(".back-button").forEach((button) => {
+          button.addEventListener("click", () => {
+            showScreen("home-screen");
+          });
+        });
+
+        // --- DYNAMICALLY ADD SKILL UI CLASSES ---
+        document
+          .querySelectorAll(".skill")
+          .forEach((el) => el.classList.add("text-sm"));
+        document
+          .querySelectorAll(".skill-name")
+          .forEach((el) =>
+            el.classList.add("font-medium", "text-gray-300", "mb-1", "block")
+          );
+        document
+          .querySelectorAll(".progress-bar-bg")
+          .forEach((el) =>
+            el.classList.add("w-full", "bg-gray-700", "rounded-full", "h-1.5")
+          );
+        document
+          .querySelectorAll(".progress-bar")
+          .forEach((el) =>
+            el.classList.add("bg-gradient-to-r", "h-1.5", "rounded-full")
+          );
+
+        // Live Clock
+        function updateTime() {
+          const now = new Date();
+          timeEl.textContent = now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+      });
+    </script>
+  </body>
+</html>
